@@ -21,6 +21,8 @@ class Juego {
 
   //inicio del juego
   inicializar(){
+    //para que js no pierda el contexto a la hora de ejecutar cada evento, lo atamos (con bind) al this del juego
+    this.elegirColor = this.elegirColor.bind(this)
     btnEmpezar.classList.add('hide') //clase .hide en css main
     this.nivel = 1
     this.colores = {
@@ -47,6 +49,8 @@ class Juego {
   siguienteNivel(){
     //iluminar secuencia
     this.iluminarSecuencia()
+    //agregar eventos a los colores (elegibles en el juego)
+    this.agregarEventosClick()
   }
 
   /* transformar numero de la secuencia (cada uno de los contenidos en el array secuencia), a un color */
@@ -78,7 +82,7 @@ class Juego {
   apagarColor(color){
     this.colores[color].classList.remove('light')
   }
-  
+
   /* Recorrer el array de colores hasta el nivel de juego */
   iluminarSecuencia(){
     //importante el uso de let y const para no sobreescribir el bloque
@@ -88,6 +92,19 @@ class Juego {
       //iluminamos el color, cada repeticion del for, multiplicando al setTimeout() * i segundos, asi la secuencia se ilumina correctamente
       setTimeout(() => this.iluminarColor(color), 1000 * i)
     }
+  }
+
+  //agregar evento a cada boton 'color' elegible en el juego
+  agregarEventosClick(){
+    this.colores.celeste.addEventListener('click', this.elegirColor)
+    this.colores.violeta.addEventListener('click', this.elegirColor)
+    this.colores.naranja.addEventListener('click', this.elegirColor)
+    this.colores.verde.addEventListener('click', this.elegirColor)
+  }
+
+  //evento de cada boton 'color', esta atado (bind) al 'this' del juego
+  elegirColor(ev){
+    console.log(ev)
   }
 }
 
