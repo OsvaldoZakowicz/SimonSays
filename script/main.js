@@ -1,4 +1,6 @@
 /* ---------------------------------------JS */
+//constantes de juego
+const ULTIMO_NIVEL = 10
 
 //obtener botones de colores
 const celeste = document.getElementById('celeste')
@@ -16,13 +18,16 @@ class Juego {
   constructor(){
     this.inicializar()
     this.generarSecuencia()
-    this.siguienteNivel()
+    //comenzar el nivel luego de 500ms
+    setTimeout(this.siguienteNivel, 500)
   }
 
   //inicio del juego
   inicializar(){
     //para que js no pierda el contexto a la hora de ejecutar cada evento, lo atamos (con bind) al this del juego
     this.elegirColor = this.elegirColor.bind(this)
+    //para que al ejecutar un setTimeout(siguienteNivel), el encargado de ejecutarlo sea 'Juego' y no 'Window'
+    this.siguienteNivel = this.siguienteNivel.bind(this)
     btnEmpezar.classList.add('hide') //clase .hide en css main
     this.nivel = 1
     this.colores = {
@@ -40,13 +45,15 @@ class Juego {
         multiplicado por cuatro, valores decimales entre [0,3.99999)
         Math.floor() = redondeo hacia abajo para tomar solo 0,1,2,3
       */
-    this.secuencia = new Array(10).fill(0).map(
+    this.secuencia = new Array(ULTIMO_NIVEL).fill(0).map(
       n => Math.floor(Math.random() * 4)
     )
   }
 
   //siguiente nivel
   siguienteNivel(){
+    //nivel intermedio, para verificar la secuencia que ingresa el usuario
+    this.subNivel = 0
     //iluminar secuencia
     this.iluminarSecuencia()
     //agregar eventos a los colores (elegibles en el juego)
@@ -65,6 +72,20 @@ class Juego {
         return 'naranja'
       case 3 :
         return 'verde'
+    }
+  }
+
+  /* transformar un color a uno de los numeros de secuencia correspondientes */
+  transformarColorANumero(color){
+    switch(color){
+      case 'celeste' :
+        return 0
+      case 'violeta' :
+        return 1
+      case 'naranja' :
+        return 2
+      case 'verde' :
+        return 3
     }
   }
 
@@ -102,9 +123,38 @@ class Juego {
     this.colores.verde.addEventListener('click', this.elegirColor)
   }
 
+  //quitar evento a cada boton 'color' elegible en el juego
+  eliminarEventosClick(){
+    this.colores.celeste.removeEventListener('click', this.elegirColor)
+    this.colores.violeta.removeEventListener('click', this.elegirColor)
+    this.colores.naranja.removeEventListener('click', this.elegirColor)
+    this.colores.verde.removeEventListener('click', this.elegirColor)
+  }
+
   //evento de cada boton 'color', esta atado (bind) al 'this' del juego
   elegirColor(ev){
-    console.log(ev)
+    //dado el atributo data-'nombre' en html, en target.dataset existe un atributo 'color' con el color de cada boton
+    const nombreColor = ev.target.dataset.color
+    const numeroColor = this.transformarColorANumero(nombreColor)
+    this.iluminarColor(nombreColor)
+    //si numero de color elegido === secuencia de colores del nivel[indice subnivel]
+    if (numeroColor === this.secuencia[this.subNivel]) {
+      this.subNivel++
+      //si el subnivel se iguala al nivel en que esta el jugador, entonces paso de nivel
+      if (this.subNivel === this.nivel) {
+        this.nivel++
+        this.eliminarEventosClick()
+        //si el jugador llego al ultimo nivel, entonces gana el juego o inicia el siguiente nivel
+        if (this.nivel === (ULTIMO_NIVEL + 1)) {
+          //Gano
+        } else {
+          //inicia el siguiente nivel, luego de 2s
+          setTimeout(this.siguienteNivel, 2000)
+        }
+      }
+    } else {
+      //perdio
+    }
   }
 }
 
