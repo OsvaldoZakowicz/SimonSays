@@ -1,6 +1,6 @@
 /* ---------------------------------------JS */
 //constantes de juego
-const ULTIMO_NIVEL = 10
+const ULTIMO_NIVEL = 3
 
 //obtener botones de colores
 const celeste = document.getElementById('celeste')
@@ -17,6 +17,7 @@ class Juego {
   //constructor
   constructor(){
     this.inicializar()
+    this.inicializar = this.inicializar.bind(this)
     this.generarSecuencia()
     //comenzar el nivel luego de 500ms
     setTimeout(this.siguienteNivel, 500)
@@ -28,13 +29,22 @@ class Juego {
     this.elegirColor = this.elegirColor.bind(this)
     //para que al ejecutar un setTimeout(siguienteNivel), el encargado de ejecutarlo sea 'Juego' y no 'Window'
     this.siguienteNivel = this.siguienteNivel.bind(this)
-    btnEmpezar.classList.add('hide') //clase .hide en css main
+    this.toggleBtnEmpezar()
     this.nivel = 1
     this.colores = {
       celeste : celeste,
       violeta : violeta,
       naranja : naranja,
       verde : verde
+    }
+  }
+
+  //iniciar el boton de empezar
+  toggleBtnEmpezar(){
+    if(btnEmpezar.classList.contains('hide')){
+      btnEmpezar.classList.remove('hide')
+    }else{
+      btnEmpezar.classList.add('hide')
     }
   }
 
@@ -146,15 +156,34 @@ class Juego {
         this.eliminarEventosClick()
         //si el jugador llego al ultimo nivel, entonces gana el juego o inicia el siguiente nivel
         if (this.nivel === (ULTIMO_NIVEL + 1)) {
-          //Gano
+          this.ganoElJuego()
         } else {
           //inicia el siguiente nivel, luego de 2s
           setTimeout(this.siguienteNivel, 2000)
         }
       }
     } else {
-      //perdio
+      this.perdioElJuego()
     }
+  }
+
+  //gano el juego
+  ganoElJuego(){
+    //usamos sweet alert, para mostrar un mensaje de ganador, devuelve una promesa
+    swal('Simon Say', 'you win... this time', 'success')
+      .then(() => {
+        this.inicializar()
+      })
+  }
+
+  //perdio el juego
+  perdioElJuego(){
+    //usamos sweet alert, para mostrar un mensaje de ganador, devuelve una promesa
+    swal('Simon Say', 'you lose', 'error')
+      .then(() => {
+        this.eliminarEventosClick()
+        this.inicializar()
+      })
   }
 }
 
