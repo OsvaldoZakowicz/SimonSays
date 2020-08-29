@@ -63,14 +63,22 @@ body {
 }
 
 .btn-start {
-  width: 400px;
-  height: 100px;
-  background: #ecf0f1;
-  color: #2c3e50;
-  font-size: 2.5rem;
+  width: 200px;
+  height: 80px;
+  background: #ffffff;
+  color: #1C2833;
+  font-size: 2rem;
   position: absolute;
-  top: calc(50% - 50px);
-  left: calc(50% - 200px);
+  top: calc(50% - 40px);
+  left: calc(50% - 100px);
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999999;
+}
+
+.btn-start:active {
+  box-shadow: 0 5px #666666;
+  transform: translateY(4px);
 }
 
 .hide {
