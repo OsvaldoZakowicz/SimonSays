@@ -144,6 +144,41 @@ body {
   font-weight: 300;
 }
 
+/* *Estilos sweet alert */
+
+/* *Overlay determina el color de fondo fuera de el alert */
+.swal-overlay{
+  background: rgba(17,17,17,.8);
+}
+
+/* *Modal determina el cuerpo del alert */
+.swal-modal{
+  background: var(--blanco);
+  border: none;
+  width: 300px;
+}
+
+/* *Determina el titulo del alert */
+.swal-title{
+  margin: 0px;
+  font-size: 30px;
+}
+
+/* *Determina el texto del alert */
+.swal-text{
+  font-size: 18px;
+}
+
+/* *Determina el boton del alert */
+.swal-button{
+  background: var(--celeste);
+  border-radius: 5px;
+  font-size: 16px;
+  border: none;
+}
+
+/* *Media queries responsive */
+
 @media screen and (max-width: 479px){
   .btn-start {
     width: 150px;
