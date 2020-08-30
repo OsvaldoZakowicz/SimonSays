@@ -11,13 +11,26 @@
 </head>
 <body>
   <!-- Game -->
-  <div class="gameboard">
-    <div id="celeste" class="color celeste left" data-color="celeste"></div>
-    <div id="violeta" class="color violeta right" data-color="violeta"></div>
-    <div id="naranja" class="color naranja left" data-color="naranja"></div>
-    <div id="verde" class="color verde right" data-color="verde"></div>
-    <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Jugar!</button>
-  </div>
+  <header class="cabecera">
+    <div class="titulo">
+      <h1>Simon Dice</h1>
+    </div>
+    <div class="turnos">
+      <p>Turno:</p>
+    </div>
+  </header>
+  <main class="main">
+    <div class="gameboard">
+      <div id="celeste" class="color celeste left" data-color="celeste"></div>
+      <div id="violeta" class="color violeta right" data-color="violeta"></div>
+      <div id="naranja" class="color naranja left" data-color="naranja"></div>
+      <div id="verde" class="color verde right" data-color="verde"></div>
+      <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Jugar!</button>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>Nivel:</p>
+  </footer>
   <!-- sweet alert link -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!-- javascript main -->
