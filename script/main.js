@@ -1,6 +1,6 @@
 /* ---------------------------------------JS */
 //*constantes de juego
-const ULTIMO_NIVEL = 3
+const ULTIMO_NIVEL = 5
 const NOMBRE_JUGADOR = []
 
 //*obtener botones de colores
@@ -11,6 +11,13 @@ const verde = document.getElementById('verde')
 
 //*obtener boton principal
 const btnEmpezar = document.getElementById('btnEmpezar')
+
+//*obtener campo de turno
+let turno = document.getElementById('turno')
+//*crear nodo de texto simon
+let simon = document.createTextNode('Simon')
+//*Crear nodo de texto jugador
+let jugador
 
 //*clase Juego
 class Juego {
@@ -64,12 +71,24 @@ class Juego {
 
   //*siguiente nivel
   siguienteNivel(){
+    //*turno de simon
+    this.turnoSimon()
     //*nivel intermedio, para verificar la secuencia que ingresa el usuario
     this.subNivel = 0
     //*iluminar secuencia
     this.iluminarSecuencia()
     //*agregar eventos a los colores (elegibles en el juego)
     this.agregarEventosClick()
+  }
+
+  //*turno de simon
+  turnoSimon(){
+    if(turno.contains(jugador) === true){
+      turno.removeChild(jugador)
+    }
+    if(turno.contains(simon) === false){
+      turno.appendChild(simon)
+    }
   }
 
   //*transformar numero de la secuencia (cada uno de los contenidos en el array secuencia), a un color
@@ -120,12 +139,15 @@ class Juego {
   //*Recorrer el array de colores hasta el nivel de juego
   iluminarSecuencia(){
     //*importante el uso de let y const para no sobreescribir el bloque
-    for(let i = 0; i < this.nivel; i++){
+    let i
+    for(i = 0; i < this.nivel; i++){
       //*por cada numero, transformar la secuencia a color y asignar 
       const color = this.transformarNumeroAColor(this.secuencia[i])
       //*iluminamos el color, cada repeticion del for, multiplicando al setTimeout() * i segundos, asi la secuencia se ilumina correctamente
       setTimeout(() => this.iluminarColor(color), 1000 * i)
     }
+    //*luego de cada secuencia, se lanza el turno del jugador
+    setTimeout(this.turnoJugador, 1000 * i)
   }
 
   //*agregar evento a cada boton 'color' elegible en el juego
@@ -134,6 +156,14 @@ class Juego {
     this.colores.violeta.addEventListener('click', this.elegirColor)
     this.colores.naranja.addEventListener('click', this.elegirColor)
     this.colores.verde.addEventListener('click', this.elegirColor)
+  }
+
+  //*turno del jugador
+  turnoJugador(){
+    if(turno.contains(simon)){
+      turno.removeChild(simon)
+      turno.appendChild(jugador)
+    }
   }
 
   //*quitar evento a cada boton 'color' elegible en el juego
@@ -202,6 +232,7 @@ function nombreJugador(){
   .then((nombre) => {
     if(nombre){
       NOMBRE_JUGADOR.push(nombre)
+      jugador = document.createTextNode(NOMBRE_JUGADOR[0])
     }else{
       NOMBRE_JUGADOR.push('Player')
     }
