@@ -227,7 +227,7 @@ function nombreJugador(){
       *En caso de elegit boton 'Listo!', tomara el nombre jugador
       *La opcion 'Sin Nombre' NO ejecuta nada
     */
-    buttons: ["Sin Nombre", "Listo!"],
+    buttons: 'Listo!',
   })
   .then((nombre) => {
     if(nombre){
@@ -235,6 +235,7 @@ function nombreJugador(){
       jugador = document.createTextNode(NOMBRE_JUGADOR[0])
     }else{
       NOMBRE_JUGADOR.push('Player')
+      jugador = document.createTextNode(NOMBRE_JUGADOR[0])
     }
   })
 }
