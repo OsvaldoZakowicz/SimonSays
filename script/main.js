@@ -222,10 +222,15 @@ class Juego {
 function nombreJugador(){
   swal({
     text: 'Ingresa un nombre de Jugador',
-    content: "input",
+    content: {
+      element: 'input',
+      attributes: {
+        placeholder: 'Player',
+      },
+    },
     /* 
-      *En caso de elegit boton 'Listo!', tomara el nombre jugador
-      *La opcion 'Sin Nombre' NO ejecuta nada
+      *En caso de elegir boton 'Listo!', tomara el nombre jugador
+      *En caso de no indicar nombre, por defecto será 'Player'
     */
     buttons: 'Listo!',
   })
