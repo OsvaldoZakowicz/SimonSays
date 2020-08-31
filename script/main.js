@@ -19,6 +19,11 @@ let simon = document.createTextNode('Simon')
 //*Crear nodo de texto jugador
 let jugador
 
+//*obtener campo nivel
+let nivelJuego = document.getElementById('nivel')
+//*nodo nivel actual
+let nivelActual
+
 //*clase Juego
 class Juego {
 
@@ -73,6 +78,7 @@ class Juego {
   siguienteNivel(){
     //*turno de simon
     this.turnoSimon()
+    this.mostrarNivel()
     //*nivel intermedio, para verificar la secuencia que ingresa el usuario
     this.subNivel = 0
     //*iluminar secuencia
@@ -88,6 +94,19 @@ class Juego {
     }
     if(turno.contains(simon) === false){
       turno.appendChild(simon)
+    }
+  }
+
+  mostrarNivel(){
+    //debugger
+    let n = this.nivel.toString()
+    if (nivelJuego.childNodes.length === 0) {
+      nivelActual = document.createTextNode(n)
+      nivelJuego.appendChild(nivelActual)
+    }else if(nivelJuego.childNodes.length === 1){
+      nivelJuego.removeChild(nivelActual)
+      nivelActual = document.createTextNode(n)
+      nivelJuego.appendChild(nivelActual)
     }
   }
 
