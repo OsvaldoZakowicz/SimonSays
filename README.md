@@ -1,4 +1,4 @@
-# SimonSay
+# SimonSays
 Último tag: **v0.2** estable.
 Licencia **MIT**
 
