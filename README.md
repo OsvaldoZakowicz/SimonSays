@@ -1,6 +1,5 @@
 # SimonSays
 Último tag: **v0.2** estable.
-Licencia **MIT**
 
 Simon say es un simple juego de "Simon dice" que consiste en repetir una secuencia de colores aleatoria en un orden correcto para ganar.
 ## Caracteristicas
