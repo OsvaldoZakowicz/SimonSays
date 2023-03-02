@@ -1,4 +1,4 @@
-# SimonSays
+# Simon Says
 Último tag: **v0.2** estable.
 
 Simon says es un simple juego de "simon dice" que consiste en repetir una secuencia de colores aleatoria en un orden correcto para ganar.
